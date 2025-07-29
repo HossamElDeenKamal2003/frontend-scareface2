@@ -15,6 +15,7 @@
 
     <!-- Left Sidebar - for md and up -->
     <aside
+      style="position: absolute; top: 35%; left: 2%;"
       class="hidden md-flex fixed top-50 left-28 translate-y--50 w-60px h-65vh bg-dark-red rounded-xl flex-col items-center py-4 space-y-5 shadow-lg z-50"
     >
       <router-link
@@ -25,68 +26,57 @@
   >
     <component :is="Icon" :size="24" />
   </router-link>
-    </aside>
-
-    <!-- Right Sidebar - for md and up -->
-    <aside
-      class="hidden md-flex fixed top-50 right-28 translate-y--50 w-60px h-65vh bg-dark-red rounded-xl flex-col items-center py-4 space-y-4 shadow-lg z-50"
-    >
-      <div v-for="(friend, i) in friends" :key="i" class="relative flex flex-col items-center">
-        <img
-          :src="friend.img"
-          :alt="`Friend ${i + 1}`"
-          class="w-10 h-10 rounded-full border-2 border-white shadow"
-        />
-        <span
-          :class="[
-            'absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border border-black',
-            {
-              'bg-green': friend.status === 'online',
-              'bg-orange': friend.status === 'in-game',
-              'bg-gray': friend.status === 'offline',
-            },
-          ]"
-        ></span>
-        <div class="flex space-x-2 mt-2">
-          <a href="https://t.me/OwnerUsername" target="_blank" rel="noopener noreferrer">
+   <!-- <div class="flex space-x-2 mt-2">
+          <a style="display: block;" href="https://t.me/OwnerUsername" target="_blank" rel="noopener noreferrer">
             <Send class="w-5 h-5 text-blue hover-text-blue-light" />
           </a>
           <MessageCircle
             class="w-5 h-5 text-green hover-text-green-light cursor-pointer"
             @click="toggleChat"
           />
-        </div>
-      </div>
+        </div> -->
     </aside>
+
+    <!-- Right Sidebar - for md and up -->
 
     <!-- Main Content -->
     <div class="relative z-10 flex justify-center items-start px-4 sm-px-8 pt-16 pb-12 min-h-screen">
-      <div class="w-full max-w-7xl bg-dark-red-semi backdrop-blur-lg rounded-30px shadow-2xl md-px-10 px-4" style="background-color: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px);">
+      <div class="w-full max-w-7xl bg-dark-red-semi backdrop-blur-lg rounded-30px shadow-2xl md-px-10 px-4" style="backdrop-filter: blur(15px);">
         <div class="relative text-white font-sans rounded-30px px-6 sm-px-12 py-12">
           <!-- Header -->
-          <div class="mb-8">
-            <h1 class="text-2xl sm-text-3xl font-bold">
-              <span style="color: white;" class="text-yellow">Scar</span><span style="color: red;">Face</span>
-            </h1>
-            <div class="mt-4 flex flex-col sm-flex-row items-stretch sm-items-center gap-4">
-              <input
-                type="text"
-                placeholder="Search games..."
-                class="flex-1 bg-dark-red text-sm px-4 py-2 rounded-full text-white border border-red-border focus-outline-none focus-ring"
-              />
-              <span
-                class="text-base text-yellow-light font-medium bg-red-light px-3 py-1 rounded-full shadow-inner text-center sm-w-auto"
-              >
-                {{ currentTime }}
-              </span>
-            </div>
+     <div class="mb-8">
+  <!-- Header Row -->
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+        <!-- Logo -->
+        <h1 class="text-2xl sm:text-3xl font-bold m-0 flex items-center">
+          <span style="color: white; font-size: 2.2em; font-family: serif;" class="text-yellow">Scar</span>
+          <span style="color: red; font-family: serif; font-size: 2.2em;">Face</span>
+        </h1>
+
+        <!-- Notification + Search Row -->
+        <div class="flex items-center gap-4 flex-1 justify-end">
+          <!-- Notification Bell -->
+
+          <!-- Search Input -->
+          <input
+            type="text"
+            placeholder="Search ..."
+            style="width: 100%; padding: 10px; margin-top: 15px;"
+            class="bg-dark-red text-sm px-4 py-2 rounded-full text-white border border-red-border focus:outline-none w-64"
+          />
+          <!-- Search By Dropdown -->
+          <span class="text-white text-2xl cursor-pointer" style="margin-top: 10px;">🔔</span>
+
+        </div>
+      </div>
           </div>
-          <div class="conatianer" style="display: flex;">
-          <section class="bg-red-dark p-5 sm-p-6 rounded-2xl flex flex-col md-flex-row gap-5 sm-gap-6 items-center shadow-lg" style="margin-bottom: 20px;">
+          <div class="conatianer" style="display: flex; gap: 15px; justify-content: space-between;">
+          <section class="bg-red-dark p-5 sm-p-6 rounded-2xl flex flex-col md-flex-row gap-5 sm-gap-6 items-center shadow-lg" style="margin-bottom: 20px; min-width: 75%;">
             <div class="flex-1 text-center md-text-left">
               <span
                 v-if="games[0].tag"
                 class="inline-block bg-yellow-dark text-white text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider"
+                style="font-size: inherit;"
               >
                 {{ games[0].tag }}
               </span>
@@ -96,147 +86,149 @@
               <p class="text-sm sm-text-base text-gray-300 leading-relaxed">
                 {{ games[0].description }}
               </p>
-              <p class="text-sm text-yellow mt-4">+{{ games[0].reviews }} Reviews</p>
+              <!-- <div style="display: flex; justify-content: center; width: 100%;"> -->
+                <div class="button-container">
+                    <button class="btn"> Connect to Quotex
+                    </button>
+                    <button class="btn"> Connect to Strategy
+
+                    </button>
+                </div>
+              <!-- </div> -->
             </div>
             <div class="flex-shrink-0 w-240px sm-w-300px">
               <img
-                :src="games[0].image"
+                src="../assets/logo.jpeg"
                 :alt="games[0].title"
+                style="object-fit: cover;"
                 class="rounded-2xl object-cover shadow-lg"
               />
             </div>
           </section>
-
           <!-- Suggestions -->
-          <section class="mt-6 flex gap-3 flex-wrap" style="display: flex; gap: 5px; margin-bottom: 20px; justify-content: center;flex-wrap: wrap; flex-direction: column;" gap="5px">
-            <div
-              v-for="(s, i) in suggestions"
-              :key="i"
-              class="bg-red-medium rounded-xl px-4 py-2 text-white shadow hover-bg-red-darker transition w-full sm-w-auto"
-              style="width: max-content;"
+           <!-- gap: 10px; margin-bottom: 30px; -->
+            <section
+              class="mt-6 flex gap-3 flex-wrap" 
+              style="justify-content: center; flex-direction: column; flex-wrap: wrap;gap: 10px; margin-bottom: 30px;"
             >
-              <p class="font-semibold text-sm">{{ s.name }}</p>
-              <p v-if="s.type" class="text-xs text-gray-400">({{ s.type }})</p>
-            </div>
-          </section>
+              <div
+                v-for="(s, i) in suggestions"
+                :key="i"
+                class="bg-red-medium rounded-xl px-4 py-3 text-white shadow hover:bg-red-800 transition"
+                style="width: max-content; display: flex; align-items: center; gap: 15px; min-width: 220px;"
+              >
+                <!-- Avatar with Layered Border -->
+                <div
+                  style="
+                    position: relative;
+                    width: 70px;
+                    height: 70px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                  "
+                >
+                  <!-- Profile Image (under) -->
+                  <img
+                    src="../assets/logo.jpeg"
+                    alt="Profile"
+                    style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%; z-index: 1; position: relative;"
+                  />
 
+                  <!-- Border Image (over) -->
+                  <div
+                    :style="{
+                      position: 'absolute',
+                      top: '0',
+                      left: '0',
+                      width: '70px',
+                      height: '70px',
+                      backgroundImage: `url(${borderImages[i] || ''})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      borderRadius: '50%',
+                      zIndex: 2
+                    }"
+                  ></div>
+                </div>
+
+                <!-- Info -->
+                <div style="display: flex; flex-direction: column;">
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <span style="font-size: 1.1em;">
+                      {{
+                        i === 0 ? '🥇' :
+                        i === 1 ? '🥈' :
+                        i === 2 ? '🥉' :
+                        ''
+                      }}
+                    </span>
+                    <div style="display: flex; justify-content: space-between; width: 100%;">
+                      <p class="font-semibold text-sm m-0">{{ s.name }}</p>
+                      <p style="color: green;">{{ s.profit }}</p>
+                    </div>
+                  </div>
+                  <div style="display: flex; gap: 15px;">
+                    <div style="display: flex; justify-content: space-between; width: 100%;">
+                      <p v-if="s.type" class="text-xs text-gray-400 mt-1" style="font-size: .5rem;">Number of trades:</p>
+                      <p v-if="s.type" class="text-xs text-gray-400 mt-1" style="color: white;">{{ s.numTrades }}</p>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; width: 100%;">
+                      <p v-if="s.type" class="text-xs text-gray-400 mt-1" style="font-size: .5rem;">Profitable trades:</p>
+                      <p v-if="s.type" class="text-xs text-gray-400 mt-1" style="color: white;">{{ s.profitable }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
           </div>
-          <div class="cards flex gap-6" style="gap: 2px; width: 100%;">
           <div class="cards flex gap-6" style="width: 100%;">
-    <!-- Game Carousel Section -->
-    <section class="mt-8 relative w-[70%]">
-      <h3 class="text-lg sm:text-xl font-semibold text-yellow-300 mb-3">New Games</h3>
-
-      <!-- Arrows -->
-      <button
-        @click="scrollLeft"
-        class="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-[#2a0e0e]/80 text-white p-2 rounded-full shadow hover:bg-yellow-500 transition"
-      >
-        ←
-      </button>
-      <button
-        @click="scrollRight"
-        class="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-[#2a0e0e]/80 text-white p-2 rounded-full shadow hover:bg-yellow-500 transition"
-      >
-        →
-      </button>
-
-      <!-- Scrolling Cards Container -->
-      <div
-        ref="scrollContainer"
-        class="flex gap-4 overflow-x-auto no-scrollbar scroll-smooth"
-        style="width: 145%;"
-        @mouseenter="pauseScroll"
-        @mouseleave="startScroll"
-      >
-        <template v-for="n in 2">
-          <div
-            v-for="(game, i) in games"
-            :key="`${n}-${i}`"
-            class="w-1/2 min-w-[50%] relative h-[220px] rounded-xl shadow-md hover:shadow-lg transition duration-300 overflow-hidden flex-shrink-0"
-          >
-            <img
-              :src="game.image"
-              :alt="game.title"
-              class="object-cover absolute inset-0 w-full h-full"
-            />
-            <div class="absolute bottom-0 left-0 w-full px-4 py-2 bg-gradient-to-t from-black/60 to-transparent">
-              <h4 class="text-base sm:text-lg font-semibold text-white">{{ game.title }}</h4>
-              <p v-if="game.description" class="text-xs sm:text-sm text-gray-200">
-                {{ game.description }}
-              </p>
-            </div>
-          </div>
-        </template>
-      </div>
-    </section>
-  </div>
-
-    <!-- Statistic Sidebar -->
-    <div class="bg-gradient-to-br from-[#471c1c] to-[#2a0e0e] p-6 rounded-3xl shadow-2xl w-[300px] text-white relative mt-8"
-          style="height: 425px; border-radius: 15px; padding: 10px;"
-    >
-      <div class="flex justify-between items-center mb-6">
-        <h3 class="text-white text-lg font-semibold">Your Statistic</h3>
-        <span class="text-white text-xl font-bold">&rarr;</span>
-      </div>
-
-      <!-- Central Circle -->
-      <div style="display: flex; justify-content: center; margin-bottom: 1.5rem;">
-          <!-- Outer circle with gradient border -->
-          <div
+          <section class="mt-8 relative" style="width: 100%; overflow: hidden;">
+            <h3 class="text-lg sm:text-xl font-semibold text-yellow-300 mb-3">Strategies</h3>
+          <button
+            @click="scrollRight"
+            @mouseover="hover = true"
+            @mouseleave="hover = false"
+            class="fixed right-0 top-1/2 z-10 shadow transition"
             style="
-              background: linear-gradient(135deg, red, purple, yellow);
-              padding: 4px;
-              border-radius: 50%;
-              display: inline-flex;
-              align-items: center;
-              justify-content: center;
+              background-color: red;
+              color: white;
+              border-radius: 5px;
+              border-left: none;
+              transform: translateY(-68%);
+              margin-right: 15px;
+              padding: 10px 16px;
+              font-size: 1.2em;
+              border: none;
             "
           >
-            <!-- Inner circle -->
-            <div
-              style="
-                width: 160px;
-                height: 160px;
-                border-radius: 50%;
-                background-color: #1a1a1a;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                color: white;
-                text-align: center;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-              "
-            >
-              <p style="font-size: 0.75rem; text-transform: uppercase;">Total hours</p>
-              <p style="font-size: 2rem; font-weight: bold;">12,340h</p>
-            </div>
+            →
+          </button>
+          <!-- ✅ Only One Scroll Container with ref -->
+          <div
+            ref="scrollContainer"
+            class="flex gap-4 overflow-x-auto no-scrollbar scroll-smooth"
+            style="width: 145%;"
+            @mouseenter="pauseScroll"
+            @mouseleave="startScroll"
+          >
+        <template v-for="n in 2">
+          <div
+            v-for="(img, i) in images"
+            :key="`${n}-${i}`"
+            class="relative"
+            style="min-width: 220px; width: 220px; height: 220px; flex-shrink: 0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);"
+          >
+            <img
+              :src="img"
+              :alt="'Game ' + i"
+              style="width: 100%; height: 100%; object-fit: cover;"
+            />
           </div>
-        </div>
-
-
-      <!-- Game Stats -->
-      <div class="flex justify-between items-center px-2">
-        <div class="flex flex-col items-center gap-1">
-          <img src="" class="w-10 h-10 rounded-full shadow" alt="dota" />
-          <p class="text-sm">2,340h</p>
-        </div>
-        <div class="flex flex-col items-center gap-1">
-          <img src="" class="w-10 h-10 rounded-full shadow" alt="valorant" />
-          <p class="text-sm">5,420h</p>
-        </div>
-        <div class="flex flex-col items-center gap-1">
-          <img src="" class="w-10 h-10 rounded-full shadow" alt="pubg" />
-          <p class="text-sm">4,580h</p>
-        </div>
-      </div>
-    </div>
+        </template>
           </div>
-          <!-- New Games -->
-        
-
+          </section>
+          </div>
           <!-- Statistics -->
           <section class="mt-10 relative overflow-hidden rounded-2xl shadow-2xl ring-1 ring-yellow-500 bg-dark-overlay backdrop-blur-md">
     <div class="relative z-10 p-6">
@@ -257,14 +249,20 @@
             <tr
               v-for="(item, index) in paginatedStats"
               :key="index"
+              :style="{
+                backgroundColor: index % 2 === 0 
+                  ? 'rgba(255, 255, 255, 0.1)' 
+                  : 'grey'
+              }"
               class="hover:bg-yellow-900/20 transition"
             >
-              <td style="text-align: center;" class="px-4 py-2">{{ item.game }}</td>
-              <td class="px-4 py-2" style="color: green; text-align: center;">{{ item.platform }}</td>
-              <td class="px-4 py-2" style="color: green; text-align: center;">{{ item.hours }}</td>
-              <td style="text-align: center;" class="px-4 py-2">{{ item.rank }}</td>
-              <td style="text-align: center;" class="px-4 py-2">{{ item.lastPlayed }}</td>
+              <td style="text-align: center;" class="px-4 py-2 text-black">{{ item.game }}</td>
+              <td style="text-align: center; color: green;" class="px-4 py-2 text-black">{{ item.platform }}</td>
+              <td style="text-align: center; color: green;" class="px-4 py-2 text-black">{{ item.hours }}</td>
+              <td style="text-align: center;" class="px-4 py-2 text-black">{{ item.rank }}</td>
+              <td style="text-align: center;" class="px-4 py-2 text-black">{{ item.lastPlayed }}</td>
             </tr>
+
           </tbody>
         </table>
       </div>
@@ -316,31 +314,117 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount,computed } from 'vue';
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
 import { Home, Gamepad2, Download, Users, Settings, Plus, Send, MessageCircle } from 'lucide-vue-next';
+import firstBorder from '../assets/first.png';
+import secondBorder from '../assets/second.png';
+import thirdBorder from '../assets/third.png';
 
-const currentTime = ref('');
+const borderImages = [firstBorder, secondBorder, thirdBorder];
+const countdown = ref('');
+let countdownInterval;
+let endTime = Date.now() + 24 * 60 * 60 * 1000; // 24 hours in ms
 const isChatOpen = ref(false);
+const images = [
+  new URL('../assets/WhatsApp Image 2025-07-28 at 9.04.12 AM.jpeg', import.meta.url).href,
+  new URL('../assets/WhatsApp Image 2025-07-28 at 9.04.13 AM.jpeg', import.meta.url).href,
+  new URL('../assets/WhatsApp Image 2025-07-28 at 9.04.13 AM(1).jpeg', import.meta.url).href,
+  new URL('../assets/WhatsApp Image 2025-07-28 at 9.04.13 AM(2).jpeg', import.meta.url).href,
+  new URL('../assets/WhatsApp Image 2025-07-28 at 9.04.13 AM(3).jpeg', import.meta.url).href,
+  new URL('../assets/WhatsApp Image 2025-07-28 at 9.04.13 AM(4).jpeg', import.meta.url).href,
+  new URL('../assets/WhatsApp Image 2025-07-28 at 9.04.13 AM(5).jpeg', import.meta.url).href,
+  new URL('../assets/WhatsApp Image 2025-07-28 at 9.04.13 AM(6).jpeg', import.meta.url).href,
+  new URL('../assets/WhatsApp Image 2025-07-28 at 9.04.13 AM(7).jpeg', import.meta.url).href,
+  new URL('../assets/WhatsApp Image 2025-07-28 at 9.04.13 AM(8).jpeg', import.meta.url).href,
+  new URL('../assets/WhatsApp Image 2025-07-28 at 9.04.14 AM.jpeg', import.meta.url).href,
+  new URL('../assets/WhatsApp Image 2025-07-28 at 9.04.14 AM(1).jpeg', import.meta.url).href,
+  new URL('../assets/WhatsApp Image 2025-07-28 at 9.04.14 AM(2).jpeg', import.meta.url).href,
+  new URL('../assets/WhatsApp Image 2025-07-28 at 9.04.14 AM(3).jpeg', import.meta.url).href,
+  new URL('../assets/WhatsApp Image 2025-07-28 at 9.04.14 AM(4).jpeg', import.meta.url).href,
+  new URL('../assets/WhatsApp Image 2025-07-28 at 9.04.14 AM(5).jpeg', import.meta.url).href,
+];
 
 const icons = [
-  { icon: Home, route: '/' },
+  { icon: Home, route: '/main' },
   { icon: Gamepad2, route: '/chart' },
   { icon: Download, route: '/courses' },
   { icon: Users, route: '/users' },
   { icon: Settings, route: '/settings' },
 ];
 
-const scrollContainer = ref(null)
-let scrollInterval
+const scrollContainer = ref(null);
+let scrollInterval;
 
 // Scroll auto
 const startScroll = () => {
   scrollInterval = setInterval(() => {
     if (scrollContainer.value) {
-      scrollContainer.value.scrollLeft += 3
+      scrollContainer.value.scrollLeft += 3;
     }
-  }, 30) // adjust speed
-}
+  }, 30);
+};
+
+const pauseScroll = () => clearInterval(scrollInterval);
+
+const scrollLeft = () => {
+  if (scrollContainer.value) scrollContainer.value.scrollLeft -= 200;
+};
+
+const scrollRight = () => {
+  if (scrollContainer.value) scrollContainer.value.scrollLeft += 200;
+};
+const hover = ref(false);
+
+const buttonStyle = computed(() => ({
+  backgroundColor: hover.value ? 'gold' : 'white',
+  color: 'black',
+  padding: '10px 20px',
+  borderRadius: '8px',
+  border: '1px solid black',
+  cursor: 'pointer',
+  transition: 'all 0.3s ease',
+}));
+
+const handleScroll = () => {
+  const container = scrollContainer.value;
+  if (!container) return;
+
+  const containerWidth = container.offsetWidth;
+
+  imageRefs.value.forEach((img) => {
+    const rect = img.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+    const left = rect.left - containerRect.left;
+
+    const threshold = containerWidth * 0.3;
+    img.classList.toggle('blur-md', left > threshold);
+  });
+};
+
+const updateCountdown = () => {
+  const now = Date.now();
+  let diff = Math.max(0, endTime - now);
+
+  const hours = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, '0');
+  const minutes = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+  const seconds = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+
+  countdown.value = `${hours}:${minutes}:${seconds}`;
+};
+
+onMounted(() => {
+  startScroll();
+  updateCountdown(); // Initial call
+  countdownInterval = setInterval(updateCountdown, 1000);
+  scrollContainer.value.addEventListener('scroll', handleScroll);
+});
+
+onBeforeUnmount(() => {
+  pauseScroll();
+  clearInterval(countdownInterval);
+});
+
+// Table data & pagination
 const statsTable = ref([
   { game: '20jul', platform: '102$', hours: '+85%', rank: '1200$', lastPlayed: '17' },
   { game: '20jul', platform: '102$', hours: '+85%', rank: '1200$', lastPlayed: '17' },
@@ -354,50 +438,33 @@ const statsTable = ref([
   { game: '20jul', platform: '102$', hours: '+85%', rank: '1200$', lastPlayed: '17' },
   { game: '20jul', platform: '102$', hours: '+85%', rank: '1200$', lastPlayed: '17' },
   { game: '20jul', platform: '102$', hours: '+85%', rank: '1200$', lastPlayed: '17' },
-])
+  // ... add more rows as needed
+]);
 
-const currentPage = ref(1)
-const rowsPerPage = 10
+const currentPage = ref(1);
+const rowsPerPage = 10;
 
-const totalPages = computed(() => Math.ceil(statsTable.value.length / rowsPerPage))
+const totalPages = computed(() =>
+  Math.ceil(statsTable.value.length / rowsPerPage)
+);
 
 const paginatedStats = computed(() => {
-  const start = (currentPage.value - 1) * rowsPerPage
-  return statsTable.value.slice(start, start + rowsPerPage)
-})
-const pauseScroll = () => clearInterval(scrollInterval)
+  const start = (currentPage.value - 1) * rowsPerPage;
+  return statsTable.value.slice(start, start + rowsPerPage);
+});
 
-const scrollLeft = () => {
-  if (scrollContainer.value) {
-    scrollContainer.value.scrollLeft -= 200
-  }
-}
-
-const scrollRight = () => {
-  if (scrollContainer.value) {
-    scrollContainer.value.scrollLeft += 200
-  }
-}
-
-onMounted(() => {
-  startScroll()
-})
-
-onBeforeUnmount(() => {
-  pauseScroll()
-})
-
+// Dummy data
 const games = [
   {
-    title: 'Valorant',
-    description: 'Valorant is a multiplayer computer game developed and published by Riot Games. It is a team-based first-person shooter.',
-    tag: 'Popular',
-    reviews: 53,
+    title: 'Pro Trading Hub',
+    description: 'Dominate the Market with Our Exclusive Strategies!                 ',
+    tag: 'TOP STRATEGY',
+    // reviews: 53,
     image: '../assets/whats.jpeg',
   },
   {
-    title: 'Uncharted 4', 
-    description: 'The sequel to Uncharted 3: Drake’s Deception and the final installment of Nathan Drake’s adventures.',
+    title: 'Uncharted 4',
+    description: 'The sequel to Uncharted 3: Drake’s Deception.',
     image: '../assets/whats.jpeg',
   },
   {
@@ -410,7 +477,6 @@ const games = [
   },
 ];
 
-
 const stats = [
   { name: 'Dota 2', hours: 2340, icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGSp1lcxxdQRXn5_xp4AUObaG6ufGUJ7zQijorrBc0O8q1xPimr4VUvjbp9AR1Wdqbfr8&usqp=CAU' },
   { name: 'CS:GO', hours: 5420, icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:4VUvjbp9AR1Wdqbfr8&usqp=CAU' },
@@ -418,33 +484,31 @@ const stats = [
 ];
 
 const suggestions = [
-  { name: 'Unravel 2', type: 'Standard Edition + Starter Pass' },
-  { name: 'Subway Surf', type: 'Standard Edition + Starter Pass' },
-  { name: 'Red Dead Redemption 3', type: 'Standard Edition + Starter Pass' },
+  { name: 'Omar', type: 'Standard Edition', profit: '+7.848$', numTrades: 29, profitable: 15 },
+  { name: 'Emit Khan', type: 'Standard Edition', profit: '+6.218$', numTrades: 21, profitable: 18 },
+  { name: 'Adam', type: 'Standard Edition', profit: '+4.248$', numTrades: 34, profitable: 20 },
 ];
 
 const friends = [
-  { img: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?cs=srgb&dl=pexels-italo-melo-881954-2379004.jpg&fm=jpg', status: 'in-game' },
-  { img: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?cs=srgb&dl=pexels-italo-melo-881954-2379004.jpg&fm=jpg', status: 'online' },
-  { img: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?cs=srgb&dl=pexels-italo-melo-881954-2379004.jpg&fm=jpg', status: 'offline' },
-  { img: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?cs=srgb&dl=pexels-italo-melo-881954-2379004.jpg&fm=jpg', status: 'online' },
-  { img: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?cs=srgb&dl=pexels-italo-melo-881954-2379004.jpg&fm=jpg', status: 'in-game' },
+  { img: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg', status: 'in-game' },
+  { img: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg', status: 'online' },
+  { img: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg', status: 'offline' },
+  { img: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg', status: 'online' },
+  { img: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg', status: 'in-game' },
 ];
 
 const toggleChat = () => {
   isChatOpen.value = !isChatOpen.value;
 };
-
-onMounted(() => {
-  const now = new Date().toLocaleTimeString([], {
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-  currentTime.value = now;
-});
 </script>
 
 <style scoped>
+/* aside{
+  position: absolute;
+  top: 30%;
+  left: 0;
+} */
+
 /* General container */
 .relative { position: relative; }
 .w-full { width: 100%; }
@@ -687,6 +751,56 @@ img{
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+th{
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+}
+
+table{
+  width: 80%;
+}
+
+tr{
+  margin-bottom: 5px;
+}
+
+td{
+  padding: 8px;
+}
+
+button:hover {
+  background-color: #facc15;
+  color: white;
+}
+
+.button-container {
+    background: rgba(40, 0, 0, 0.6); /* خلفية شفافة */
+    padding: 15px 20px;
+    border-radius: 12px;
+    display: flex;
+    gap: 15px;
+    width: fit-content;
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
+}
+.btn {
+    background: linear-gradient(45deg, #ff0000, #b30000);
+    border: none;
+    padding: 12px 25px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+}
+
+.btn:hover {
+    background: linear-gradient(45deg, #ff3333, #ff0000);
+    box-shadow: 0 0 18px rgba(255, 0, 0, 0.9);
 }
 </style>
 ```
